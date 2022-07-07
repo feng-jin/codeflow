@@ -1,5 +1,5 @@
 publishdir = "docs"
-baseURL = "http://www.example.com"
+baseURL = "https://feng-jin.github.io/codeflow/"
 title = "让代码飞一会"
 theme = "hugo-coder"
 languageCode = "zh-cn"
