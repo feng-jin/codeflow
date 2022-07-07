@@ -8,7 +8,7 @@ draft: true
 
 ```go
 func A(){
-    
+    fmt.Println("Hello World!")
 }
 ```
 
