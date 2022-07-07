@@ -2,44 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>让代码飞一会</title>
-    <link>https://feng-jin.github.io/codeflow/</link>
+    <link>https://feng-jin.github.io/codefly/</link>
     <description>Recent content on 让代码飞一会</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Thu, 07 Jul 2022 12:43:19 +0800</lastBuildDate><atom:link href="https://feng-jin.github.io/codeflow/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Test</title>
-      <link>https://feng-jin.github.io/codeflow/test/</link>
-      <pubDate>Thu, 07 Jul 2022 12:48:23 +0800</pubDate>
-      
-      <guid>https://feng-jin.github.io/codeflow/test/</guid>
-      <description> test </description>
-    </item>
-    
-    <item>
-      <title>Second</title>
-      <link>https://feng-jin.github.io/codeflow/post/second/</link>
-      <pubDate>Thu, 07 Jul 2022 12:43:19 +0800</pubDate>
-      
-      <guid>https://feng-jin.github.io/codeflow/post/second/</guid>
-      <description>second</description>
-    </item>
-    
-    <item>
-      <title>First</title>
-      <link>https://feng-jin.github.io/codeflow/post/first/</link>
-      <pubDate>Thu, 07 Jul 2022 10:48:29 +0800</pubDate>
-      
-      <guid>https://feng-jin.github.io/codeflow/post/first/</guid>
-      <description>first</description>
-    </item>
-    
+    <language>zh-cn</language><atom:link href="https://feng-jin.github.io/codefly/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
-      <link>https://feng-jin.github.io/codeflow/about/</link>
+      <link>https://feng-jin.github.io/codefly/about/</link>
       <pubDate>Thu, 07 Jul 2022 10:47:52 +0800</pubDate>
       
-      <guid>https://feng-jin.github.io/codeflow/about/</guid>
+      <guid>https://feng-jin.github.io/codefly/about/</guid>
       <description> about func a(){ fmt.Println(&amp;#34;Hello World!&amp;#34;) } </description>
     </item>
     

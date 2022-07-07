@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Authors on 让代码飞一会</title>
-    <link>https://feng-jin.github.io/codeflow/authors/</link>
+    <link>https://feng-jin.github.io/codefly/authors/</link>
     <description>Recent content in Authors on 让代码飞一会</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language><atom:link href="https://feng-jin.github.io/codeflow/authors/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-cn</language><atom:link href="https://feng-jin.github.io/codefly/authors/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
