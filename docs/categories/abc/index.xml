@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>abc on 让代码飞一会</title>
-    <link>https://feng-jin.gitee.io/codefly/categories/abc/</link>
+    <link>https://feng-jin.github.io/codefly/categories/abc/</link>
     <description>Recent content in abc on 让代码飞一会</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 09 Jul 2022 11:56:07 +0800</lastBuildDate><atom:link href="https://feng-jin.gitee.io/codefly/categories/abc/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 09 Jul 2022 11:56:07 +0800</lastBuildDate><atom:link href="https://feng-jin.github.io/codefly/categories/abc/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Test2</title>
-      <link>https://feng-jin.gitee.io/codefly/share/test2/</link>
+      <link>https://feng-jin.github.io/codefly/share/test2/</link>
       <pubDate>Sat, 09 Jul 2022 11:56:07 +0800</pubDate>
       
-      <guid>https://feng-jin.gitee.io/codefly/share/test2/</guid>
+      <guid>https://feng-jin.github.io/codefly/share/test2/</guid>
       <description></description>
     </item>
     

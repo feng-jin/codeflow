@@ -1,5 +1,5 @@
 publishdir = "docs"
-baseURL = "https://feng-jin.gitee.io/codefly"
+baseURL = "https://feng-jin.github.io/codefly"
 title = "让代码飞一会"
 theme = "hugo-coder"
 languageCode = "zh-cn"
@@ -108,7 +108,7 @@ tag = "tags"
 name = "Github"
 icon = "fa fa-2x fa-github"
 weight = 1
-url = "https://gitee.com/feng-jin"
+url = "https://github.com/feng-jin"
 
 [[params.social]]
 name = "Gitlab"
