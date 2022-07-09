@@ -1,5 +1,5 @@
 publishdir = "docs"
-baseURL = "https://feng-jin.gitee.io"
+baseURL = "https://feng-jin.gitee.io/codefly"
 title = "让代码飞一会"
 theme = "hugo-coder"
 languageCode = "zh-cn"
