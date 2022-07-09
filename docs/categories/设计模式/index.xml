@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>设计模式 on 让代码飞一会</title>
+    <link>https://feng-jin.gitee.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+    <description>Recent content in 设计模式 on 让代码飞一会</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 07 Jul 2022 10:47:52 +0800</lastBuildDate><atom:link href="https://feng-jin.gitee.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>https://feng-jin.gitee.io/share/about/</link>
+      <pubDate>Thu, 07 Jul 2022 10:47:52 +0800</pubDate>
+      
+      <guid>https://feng-jin.gitee.io/share/about/</guid>
+      <description> about func a(){ fmt.Println(&amp;#34;Hello World!&amp;#34;) } </description>
+    </item>
+    
+  </channel>
+</rss>
