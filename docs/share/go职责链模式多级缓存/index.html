@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com https://cdn.jsdelivr.net/; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+
+
+
+
+<meta name="author" content="金锋">
+<meta name="description" content="职责链模式 职责链模式，顾名思义，一条链，依次按照职责去执行。
+打个比方，办理业务，如果窗口可以办理，则窗口办理完成。如果窗口没有权限或者其他原因不能办理，则找来上级办理，上级还不能，则找来上级的上级办理。
+在编程上，可以考虑用职责链模式来处理多级缓存。
+直接上代码 cache.go
+package cache import ( &#34;golib/tlog&#34; ) type Cacher interface { HandleSet(k string, v []byte, expire int64) error HandleGet(k string) ([]byte, bool) } type Chain struct { Cacher ExpireParams float32 NextCache *Chain } func (c *Chain) SetNext(m *Chain) { c.NextCache = m } func (c *Chain) Set(k string, v []byte, expire int64) { expire = int64(float32(expire) * c.ExpireParams) err := c.HandleSet(k, v, expire) if err !">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go职责链模式,多级缓存"/>
+<meta name="twitter:description" content="职责链模式 职责链模式，顾名思义，一条链，依次按照职责去执行。
+打个比方，办理业务，如果窗口可以办理，则窗口办理完成。如果窗口没有权限或者其他原因不能办理，则找来上级办理，上级还不能，则找来上级的上级办理。
+在编程上，可以考虑用职责链模式来处理多级缓存。
+直接上代码 cache.go
+package cache import ( &#34;golib/tlog&#34; ) type Cacher interface { HandleSet(k string, v []byte, expire int64) error HandleGet(k string) ([]byte, bool) } type Chain struct { Cacher ExpireParams float32 NextCache *Chain } func (c *Chain) SetNext(m *Chain) { c.NextCache = m } func (c *Chain) Set(k string, v []byte, expire int64) { expire = int64(float32(expire) * c.ExpireParams) err := c.HandleSet(k, v, expire) if err !"/>
+
+<meta property="og:title" content="Go职责链模式,多级缓存" />
+<meta property="og:description" content="职责链模式 职责链模式，顾名思义，一条链，依次按照职责去执行。
+打个比方，办理业务，如果窗口可以办理，则窗口办理完成。如果窗口没有权限或者其他原因不能办理，则找来上级办理，上级还不能，则找来上级的上级办理。
+在编程上，可以考虑用职责链模式来处理多级缓存。
+直接上代码 cache.go
+package cache import ( &#34;golib/tlog&#34; ) type Cacher interface { HandleSet(k string, v []byte, expire int64) error HandleGet(k string) ([]byte, bool) } type Chain struct { Cacher ExpireParams float32 NextCache *Chain } func (c *Chain) SetNext(m *Chain) { c.NextCache = m } func (c *Chain) Set(k string, v []byte, expire int64) { expire = int64(float32(expire) * c.ExpireParams) err := c.HandleSet(k, v, expire) if err !" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://feng-jin.github.io/codefly/share/go%E8%81%8C%E8%B4%A3%E9%93%BE%E6%A8%A1%E5%BC%8F%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" /><meta property="article:section" content="share" />
+<meta property="article:published_time" content="2022-07-09T16:56:09+08:00" />
+<meta property="article:modified_time" content="2022-07-09T16:56:09+08:00" />
+
+
+
+
+  <title>让代码飞一会</title>
+
+  
+  <link rel="canonical" href="https://feng-jin.github.io/codefly/share/go%E8%81%8C%E8%B4%A3%E9%93%BE%E6%A8%A1%E5%BC%8F%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/">
+  
+
+  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/codefly/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+  
+    
+    
+    <link rel="stylesheet" href="/codefly/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+   
+
+
+
+
+  <link rel="icon" type="image/png" href="/codefly/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/codefly/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-dark">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/codefly">
+      让代码飞一会
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/codefly/about/">关于</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/codefly/learn/">学习</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/codefly/share/">分享</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/codefly/think/">悟道</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/codefly/concat/">联系</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+<section class="container post">
+  <article>
+    <header>
+      <div class="post-title">
+        <h1 class="title">
+          <a class="title-link" href="https://feng-jin.github.io/codefly/share/go%E8%81%8C%E8%B4%A3%E9%93%BE%E6%A8%A1%E5%BC%8F%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/">
+            Go职责链模式,多级缓存
+          </a>
+        </h1>
+      </div>
+      <div class="post-meta">
+        <div class="date">
+          <span class="posted-on">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <time datetime=" 2022-07-09T16:56:09&#43;08:00">
+              July 9, 2022
+            </time>
+          </span>
+          <span class="reading-time">
+            <i class="fa fa-clock-o" aria-hidden="true"></i>
+            预计阅读时间：2 分钟
+          </span>
+        </div>
+        
+<a href="/codefly/categories/go">
+    #go
+</a>
+
+<a href="/codefly/categories/%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f">
+    #设计模式
+</a>
+
+      </div>
+    </header>
+
+    <div>
+      
+      <h1 id="职责链模式">
+  职责链模式
+  <a class="heading-link" href="#%e8%81%8c%e8%b4%a3%e9%93%be%e6%a8%a1%e5%bc%8f">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
+<p>职责链模式，顾名思义，一条链，依次按照职责去执行。</p>
+<p>打个比方，办理业务，如果窗口可以办理，则窗口办理完成。如果窗口没有权限或者其他原因不能办理，则找来上级办理，上级还不能，则找来上级的上级办理。</p>
+<p>在编程上，可以考虑用职责链模式来处理多级缓存。</p>
+<h1 id="直接上代码">
+  直接上代码
+  <a class="heading-link" href="#%e7%9b%b4%e6%8e%a5%e4%b8%8a%e4%bb%a3%e7%a0%81">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
+<p>cache.go</p>
+<div class="highlight"><pre tabindex="0" style="color:#ccc;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#cd00cd">package</span> cache
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#cd00cd">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#cd0000">&#34;golib/tlog&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00cd00">type</span> Cacher <span style="color:#00cd00">interface</span> {
+</span></span><span style="display:flex;"><span>	HandleSet(k <span style="color:#00cd00">string</span>, v []<span style="color:#00cd00">byte</span>, expire <span style="color:#00cd00">int64</span>) <span style="color:#00cd00">error</span>
+</span></span><span style="display:flex;"><span>	HandleGet(k <span style="color:#00cd00">string</span>) ([]<span style="color:#00cd00">byte</span>, <span style="color:#00cd00">bool</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00cd00">type</span> Chain <span style="color:#00cd00">struct</span> {
+</span></span><span style="display:flex;"><span>	Cacher
+</span></span><span style="display:flex;"><span>	ExpireParams <span style="color:#00cd00">float32</span>
+</span></span><span style="display:flex;"><span>	NextCache    <span style="color:#39c">*</span>Chain
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00cd00">func</span> (c <span style="color:#39c">*</span>Chain) SetNext(m <span style="color:#39c">*</span>Chain) {
+</span></span><span style="display:flex;"><span>	c.NextCache = m
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00cd00">func</span> (c <span style="color:#39c">*</span>Chain) Set(k <span style="color:#00cd00">string</span>, v []<span style="color:#00cd00">byte</span>, expire <span style="color:#00cd00">int64</span>) {
+</span></span><span style="display:flex;"><span>	expire = <span style="color:#cd00cd">int64</span>(<span style="color:#cd00cd">float32</span>(expire) <span style="color:#39c">*</span> c.ExpireParams)
+</span></span><span style="display:flex;"><span>	err <span style="color:#39c">:=</span> c.HandleSet(k, v, expire)
+</span></span><span style="display:flex;"><span>	<span style="color:#cdcd00">if</span> err <span style="color:#39c">!=</span> <span style="color:#cdcd00">nil</span> {
+</span></span><span style="display:flex;"><span>		tlog.Errorf(<span style="color:#cd0000">&#34;Chain Set Error, %+v, %s, %s, %+v&#34;</span>, err, k, <span style="color:#cd00cd">string</span>(v), c.Cacher)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#cdcd00">if</span> c.NextCache <span style="color:#39c">!=</span> <span style="color:#cdcd00">nil</span> {
+</span></span><span style="display:flex;"><span>		c.NextCache.Set(k, v, expire)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00cd00">func</span> (c <span style="color:#39c">*</span>Chain) Get(k <span style="color:#00cd00">string</span>, expire <span style="color:#00cd00">int64</span>) ([]<span style="color:#00cd00">byte</span>, <span style="color:#00cd00">bool</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#cdcd00">if</span> c <span style="color:#39c">==</span> <span style="color:#cdcd00">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#cdcd00">return</span> []<span style="color:#00cd00">byte</span>{}, <span style="color:#cdcd00">false</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#00cd00">var</span> (
+</span></span><span style="display:flex;"><span>		data  []<span style="color:#00cd00">byte</span>
+</span></span><span style="display:flex;"><span>		found <span style="color:#00cd00">bool</span>
+</span></span><span style="display:flex;"><span>	)
+</span></span><span style="display:flex;"><span>	<span style="color:#cdcd00">if</span> data, found = c.HandleGet(k); found {
+</span></span><span style="display:flex;"><span>		<span style="color:#cdcd00">return</span> data, found
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#cdcd00">if</span> data, found = c.NextCache.Get(k, expire); found {
+</span></span><span style="display:flex;"><span>		err <span style="color:#39c">:=</span> c.HandleSet(k, data, expire)
+</span></span><span style="display:flex;"><span>		<span style="color:#cdcd00">if</span> err <span style="color:#39c">!=</span> <span style="color:#cdcd00">nil</span> {
+</span></span><span style="display:flex;"><span>			tlog.Errorf(<span style="color:#cd0000">&#34;Chain Set Error, %+v, %s, %s, %+v&#34;</span>, err, k, <span style="color:#cd00cd">string</span>(data), c.Cacher)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#cdcd00">return</span> data, found
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>local_cache.go</p>
+<div class="highlight"><pre tabindex="0" style="color:#ccc;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#cd00cd">package</span> cache
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#cd00cd">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#cd0000">&#34;lib/processcache&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#cd0000">&#34;math/rand&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#cd0000">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00cd00">type</span> LocalCache <span style="color:#00cd00">struct</span> {
+</span></span><span style="display:flex;"><span>	CacheMem <span style="color:#39c">*</span>processcache.ProcessCache
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00cd00">func</span> (c <span style="color:#39c">*</span>LocalCache) HandleSet(k <span style="color:#00cd00">string</span>, v []<span style="color:#00cd00">byte</span>, expire <span style="color:#00cd00">int64</span>) <span style="color:#00cd00">error</span> {
+</span></span><span style="display:flex;"><span>	c.CacheMem.Set(k, v, time.Now().Unix()<span style="color:#39c">+</span>expire<span style="color:#39c">+</span><span style="color:#cd00cd">int64</span>(rand.Intn(<span style="color:#cd00cd">int</span>(expire<span style="color:#39c">/</span><span style="color:#cd00cd">2</span>))))
+</span></span><span style="display:flex;"><span>	<span style="color:#cdcd00">return</span> <span style="color:#cdcd00">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00cd00">func</span> (c <span style="color:#39c">*</span>LocalCache) HandleGet(k <span style="color:#00cd00">string</span>) ([]<span style="color:#00cd00">byte</span>, <span style="color:#00cd00">bool</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#cdcd00">return</span> c.CacheMem.Get(k)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>redis_cache.go</p>
+<div class="highlight"><pre tabindex="0" style="color:#ccc;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#cd00cd">package</span> cache
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#cd00cd">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#cd0000">&#34;common/utils&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#cd0000">&#34;github.com/go-redis/redis&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#cd0000">&#34;golib/tlog&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#cd0000">&#34;math/rand&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00cd00">type</span> RedisCache <span style="color:#00cd00">struct</span> {
+</span></span><span style="display:flex;"><span>	RedisClient <span style="color:#39c">*</span>utils.RedisClient
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00cd00">func</span> (c <span style="color:#39c">*</span>RedisCache) HandleSet(k <span style="color:#00cd00">string</span>, v []<span style="color:#00cd00">byte</span>, expire <span style="color:#00cd00">int64</span>) <span style="color:#00cd00">error</span> {
+</span></span><span style="display:flex;"><span>	_, err <span style="color:#39c">:=</span> c.RedisClient.Set(k, <span style="color:#cd00cd">string</span>(v), <span style="color:#cd00cd">int</span>(expire)<span style="color:#39c">+</span>rand.Intn(<span style="color:#cd00cd">int</span>(expire<span style="color:#39c">/</span><span style="color:#cd00cd">2</span>)))
+</span></span><span style="display:flex;"><span>	<span style="color:#cdcd00">return</span> err
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00cd00">func</span> (c <span style="color:#39c">*</span>RedisCache) HandleGet(k <span style="color:#00cd00">string</span>) ([]<span style="color:#00cd00">byte</span>, <span style="color:#00cd00">bool</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#00cd00">var</span> (
+</span></span><span style="display:flex;"><span>		data <span style="color:#00cd00">string</span>
+</span></span><span style="display:flex;"><span>		err  <span style="color:#00cd00">error</span>
+</span></span><span style="display:flex;"><span>	)
+</span></span><span style="display:flex;"><span>	data, err = c.RedisClient.Get(k)
+</span></span><span style="display:flex;"><span>	<span style="color:#cdcd00">if</span> err <span style="color:#39c">!=</span> <span style="color:#cdcd00">nil</span> <span style="color:#39c">&amp;&amp;</span> err <span style="color:#39c">!=</span> redis.Nil {
+</span></span><span style="display:flex;"><span>		tlog.Error(err, k)
+</span></span><span style="display:flex;"><span>		<span style="color:#cdcd00">return</span> []<span style="color:#cd00cd">byte</span>(data), <span style="color:#cdcd00">false</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#cdcd00">if</span> err <span style="color:#39c">==</span> redis.Nil {
+</span></span><span style="display:flex;"><span>		<span style="color:#cdcd00">return</span> []<span style="color:#cd00cd">byte</span>(data), <span style="color:#cdcd00">false</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#cdcd00">return</span> []<span style="color:#cd00cd">byte</span>(data), <span style="color:#cdcd00">true</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>使用方式</p>
+<div class="highlight"><pre tabindex="0" style="color:#ccc;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>localCache <span style="color:#39c">:=</span> cache.LocalCache{CacheMem: cacheMem}
+</span></span><span style="display:flex;"><span>redisCache <span style="color:#39c">:=</span> cache.RedisCache{RedisClient: worker7Redis}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cacheChainLocal <span style="color:#39c">:=</span> cache.Chain{Cacher: <span style="color:#39c">&amp;</span>localCache, ExpireParams: <span style="color:#cd00cd">1</span>}
+</span></span><span style="display:flex;"><span>cacheChainRedis <span style="color:#39c">:=</span> cache.Chain{Cacher: <span style="color:#39c">&amp;</span>redisCache, ExpireParams: <span style="color:#cd00cd">1.2</span>}
+</span></span><span style="display:flex;"><span>cacheChainLocal.NextCache = <span style="color:#39c">&amp;</span>cacheChainRedis
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#cdcd00">if</span> data, found <span style="color:#39c">:=</span> ThisServer.CacheChain.Get(key, expire); found {
+</span></span><span style="display:flex;"><span>    <span style="color:#39c">...</span>
+</span></span><span style="display:flex;"><span>}<span style="color:#cdcd00">else</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#39c">...</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>cacheChainLocal.CacheChain.Set(k, v, expire)
+</span></span></code></pre></div>
+    </div>
+
+
+    <footer>
+      
+
+
+      
+      
+      
+    </footer>
+  </article>
+
+  
+</section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+    2022
+     金锋 
+  </section>
+</footer>
+  </main>
+
+  
+  
+  <script src="/codefly/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

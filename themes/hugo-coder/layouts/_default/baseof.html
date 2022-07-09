@@ -66,8 +66,8 @@
   {{ end }}
 
   {{ if and .Site.Params.applicationInsights .Site.Params.applicationInsights.connectionString }}
-    {{- partial "analytics/applicationinsights" . -}}
-  {{ end }}   
+  {{- partial "analytics/applicationinsights" . -}}
+  {{ end }}
 
   {{- partial "body/extensions" . -}}
 </body>

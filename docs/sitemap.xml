@@ -2,29 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://feng-jin.github.io/codefly/categories/abc/</loc>
-    <lastmod>2022-07-09T11:56:07+08:00</lastmod>
-  </url><url>
     <loc>https://feng-jin.github.io/codefly/categories/</loc>
-    <lastmod>2022-07-09T11:56:07+08:00</lastmod>
-  </url><url>
-    <loc>https://feng-jin.github.io/codefly/share/</loc>
-    <lastmod>2022-07-09T11:56:07+08:00</lastmod>
-  </url><url>
-    <loc>https://feng-jin.github.io/codefly/share/test2/</loc>
-    <lastmod>2022-07-09T11:56:07+08:00</lastmod>
-  </url><url>
-    <loc>https://feng-jin.github.io/codefly/</loc>
-    <lastmod>2022-07-09T11:56:07+08:00</lastmod>
-  </url><url>
-    <loc>https://feng-jin.github.io/codefly/share/about/</loc>
-    <lastmod>2022-07-07T10:47:52+08:00</lastmod>
+    <lastmod>2022-07-09T16:56:09+08:00</lastmod>
   </url><url>
     <loc>https://feng-jin.github.io/codefly/categories/go/</loc>
-    <lastmod>2022-07-07T10:47:52+08:00</lastmod>
+    <lastmod>2022-07-09T16:56:09+08:00</lastmod>
+  </url><url>
+    <loc>https://feng-jin.github.io/codefly/share/go%E8%81%8C%E8%B4%A3%E9%93%BE%E6%A8%A1%E5%BC%8F%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/</loc>
+    <lastmod>2022-07-09T16:56:09+08:00</lastmod>
+  </url><url>
+    <loc>https://feng-jin.github.io/codefly/share/</loc>
+    <lastmod>2022-07-09T16:56:09+08:00</lastmod>
+  </url><url>
+    <loc>https://feng-jin.github.io/codefly/</loc>
+    <lastmod>2022-07-09T16:56:09+08:00</lastmod>
   </url><url>
     <loc>https://feng-jin.github.io/codefly/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2022-07-07T10:47:52+08:00</lastmod>
+    <lastmod>2022-07-09T16:56:09+08:00</lastmod>
   </url><url>
     <loc>https://feng-jin.github.io/codefly/categories/</loc>
     <priority>0</priority>

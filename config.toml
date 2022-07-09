@@ -5,7 +5,7 @@ theme = "hugo-coder"
 languageCode = "zh-cn"
 defaultContentLanguage = "zh-cn"
 paginate = 20
-pygmentsStyle = "bw"
+pygmentsStyle = "vim"
 pygmentsCodeFences = true
 pygmentsCodeFencesGuessSyntax = true
 enableEmoji = true
@@ -17,7 +17,7 @@ author = "金锋"
 # license = '<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA-4.0</a>'
 description = "金锋个人博客，学习，技术分享，理财，悟道"
 keywords = "blog,developer,personal"
-info = ["推荐系统工程师"]
+info = ["推荐算法工程师"]
 avatarURL = "images/me.jpeg"
 favicon_32 = "images/favicon-32x32.png"
 favicon_16 = "images/favicon-16x16.png"
