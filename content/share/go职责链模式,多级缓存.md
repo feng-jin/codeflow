@@ -142,7 +142,7 @@ func (c *RedisCache) HandleGet(k string) ([]byte, bool) {
 
 ```go
 localCache := cache.LocalCache{CacheMem: cacheMem}
-redisCache := cache.RedisCache{RedisClient: worker7Redis}
+redisCache := cache.RedisCache{RedisClient: redisClient}
 
 cacheChainLocal := cache.Chain{Cacher: &localCache, ExpireParams: 1}
 cacheChainRedis := cache.Chain{Cacher: &redisCache, ExpireParams: 1.2}
